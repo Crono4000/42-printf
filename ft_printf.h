@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTFT_H
-# define PRINTFT_H
+#ifndef FT_PRINTFT_H
+# define FT_PRINTFT_H
 
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int		ft_printf(const char *str, ...);  
 void	lower_hexadecimal_digit(unsigned int rest);

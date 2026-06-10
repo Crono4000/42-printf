@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 int    print_special(char cur, va_list args)
 {
@@ -20,6 +20,8 @@ int    print_special(char cur, va_list args)
 		return (ft_putstr(va_arg(args, char*)));
 	if (cur == 'd' || cur == 'i')
 		return (long_ft_putnbr((long)va_arg(args, int)));
+	if (cur == 'p')
+		return (long_ft_putnbr((long)va_arg(args, long)));
 	if (cur == 'c')
 		return (ft_putchar_fd(va_arg(args, int), 1), 1);
 	if (cur == 'u')
@@ -37,6 +39,7 @@ int ft_printf(const char *str, ...)
 	int		result;
 	int		current;
 
+	result = 0;
 	current = 0;
 	va_start(args, str);
 	while (str[current] != '\0')
