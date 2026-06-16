@@ -12,7 +12,7 @@ $(NAME): $(OFILES)
 	ar rcs $(NAME) $(OFILES)
 
 %.o: %.c
-	$(CC) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OFILES)
