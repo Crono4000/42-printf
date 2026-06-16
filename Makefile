@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
 
-CFILES = print_hexadecimal.c ft_printf.c putstuff.c
+CFILES = print_hexadecimal.c ft_printf.c putstuff.c ft_printpointer.c
 OFILES = $(CFILES:.c=.o)
 
 all: $(NAME)

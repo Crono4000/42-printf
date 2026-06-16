@@ -10,21 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTFT_H
-# define FT_PRINTFT_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
+# include <stdarg.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 
-int		ft_printf(const char *str, ...);  
-void	lower_hexadecimal_digit(unsigned int rest);
-void	ft_putchar_fd(char c, int fd);
+int		ft_printf(const char *str, ...);
+void	lower_hexadecimal_digit(unsigned long rest);
 int		ft_putstr(char *str);
 int		long_ft_putnbr(long nb);
 int		putnbr_unsigned(unsigned int nb);
-int		print_hexadecimal(int nb, void (*f)(unsigned int));
-void	upper_hexadecimal_digit(unsigned int rest);
+void	upper_hexadecimal_digit(unsigned long rest);
+int		ft_printpointer(void *p);
+int		ft_putchar_fd(char c, int fd);
+int		print_hexadecimal(unsigned long nb, void (*f)(unsigned long));
 
 #endif
