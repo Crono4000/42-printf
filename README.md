@@ -3,7 +3,7 @@
 ## Description
 
 This project is a implementation of a c function called ft_printf.
-A function that lets you output on stdin various of types of variables and in various ways.
+A function that lets you output on stdin various types of variables and in various ways.
 
 ## Instructions
 
