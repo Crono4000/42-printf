@@ -43,6 +43,8 @@ int	ft_printf(const char *str, ...)
 
 	result = 0;
 	current = 0;
+	if (!str)
+		return (-1);
 	va_start(args, str);
 	while (str[current] != '\0')
 	{
@@ -60,3 +62,12 @@ int	ft_printf(const char *str, ...)
 	}
 	return (result);
 }
+
+/*int main(void)
+{
+	int test = printf(0);
+	ft_printf("test:%d\n", test);
+	test = ft_printf(0);
+	ft_printf("test:%d\n", test);
+	return 0;
+}*/
