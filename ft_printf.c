@@ -12,62 +12,65 @@
 
 #include "ft_printf.h"
 
-int	print_special(char cur, va_list args)
+void	print_special(char cur, char cur2, va_list args, int *f)
 {
-	if (cur == '%')
-		return ((int) write(1, &cur, 1));
 	if (cur == 's')
-		return (ft_putstr(va_arg(args, char *)));
-	if (cur == 'd' || cur == 'i')
-		return (long_ft_putnbr((long)va_arg(args, int)));
-	if (cur == 'p')
-		return (ft_printpointer(va_arg(args, void *)));
-	if (cur == 'c')
-		return (ft_putchar_fd(va_arg(args, int), 1), 1);
-	if (cur == 'u')
-		return (putnbr_unsigned(va_arg(args, unsigned int)));
-	if (cur == 'x')
-		return (print_hexadecimal((unsigned long)va_arg(args, unsigned int),
-				lower_hexadecimal_digit));
-	if (cur == 'X')
-		return (print_hexadecimal((unsigned long)va_arg(args, unsigned int),
-				upper_hexadecimal_digit));
-	return (0);
+		*(f) += (ft_putstr(va_arg(args, char *)));
+	else if (cur == 'd' || cur == 'i')
+		*(f) += (long_ft_putnbr((long)va_arg(args, int)));
+	else if (cur == 'p')
+		*(f) += (ft_printpointer(va_arg(args, void *)));
+	else if (cur == 'c')
+		*(f) += (ft_putchar_fd(va_arg(args, int), 1), 1);
+	else if (cur == 'u')
+		*(f) += (putnbr_unsigned(va_arg(args, unsigned int)));
+	else if (cur == 'x')
+		*(f) += (print_hexadecimal((unsigned long)va_arg(args, unsigned int),
+					lower_hexadecimal_digit));
+	else if (cur == 'X')
+		*(f) += (print_hexadecimal((unsigned long)va_arg(args, unsigned int),
+					upper_hexadecimal_digit));
+	else if (cur == '%')
+		*(f) += (ft_putchar_fd('%', 1), 1);
+	else if (cur == '\0' || cur2 == '\0')
+		*(f) = (-1);
+	else
+		*(f) += (ft_putchar_fd('%', 1), 1);
 }
 
 int	ft_printf(const char *str, ...)
 {
 	va_list	args;
 	int		result;
-	int		current;
+	int		i;
 
 	result = 0;
-	current = 0;
+	i = 0;
 	if (!str)
 		return (-1);
 	va_start(args, str);
-	while (str[current] != '\0')
+	while (str[i] != '\0')
 	{
-		if (str[current] == '%')
+		if (str[i] == '%')
 		{
-			current++;
-			result += print_special(str[current], args);
+			i++;
+			print_special(str[i], str[i + 1], args, &result);
+			if (result == -1)
+				break ;
 		}
 		else
-		{
-			write(1, str + current, 1);
-			result++;
-		}
-		current++;
+			result += (int) write(1, str + i, 1);
+		i++;
 	}
+	va_end(args);
 	return (result);
 }
 
 /*int main(void)
 {
-	int test = printf(0);
-	ft_printf("test:%d\n", test);
-	test = ft_printf(0);
-	ft_printf("test:%d\n", test);
+	int test = printf("1sss%z ");
+	ft_printf("test1:%d\n", test);
+	test = ft_printf("2sss%z ");
+	ft_printf("test2:%d\n", test);
 	return 0;
 }*/
