@@ -51,16 +51,17 @@ int	ft_printf(const char *str, ...)
 	va_start(args, str);
 	while (str[i] != '\0')
 	{
-		if (str[i] == '%')
+		if (str[i] == '%' && str[i + 1] == '\0')
+			result = -1;
+		else if (str[i++] == '%')
 		{
-			i++;
 			print_special(str[i], str[i + 1], args, &result);
-			if (result == -1)
-				break ;
+			i++;
 		}
 		else
-			result += (int) write(1, str + i, 1);
-		i++;
+			result += (int) write(1, str + i - 1, 1);
+		if (result == -1)
+			break ;
 	}
 	va_end(args);
 	return (result);
@@ -68,9 +69,9 @@ int	ft_printf(const char *str, ...)
 
 /*int main(void)
 {
-	int test = printf("1sss%z ");
+	int test = printf("1sss% ");
 	ft_printf("test1:%d\n", test);
-	test = ft_printf("2sss%z ");
+	test = ft_printf("2sss% ");
 	ft_printf("test2:%d\n", test);
 	return 0;
 }*/
